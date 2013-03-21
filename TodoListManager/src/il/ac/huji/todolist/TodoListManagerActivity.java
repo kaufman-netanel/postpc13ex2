@@ -33,8 +33,6 @@ public class TodoListManagerActivity extends Activity {
         setContentView(R.layout.activity_todo_list_manager);
         
         todos = new ArrayList<Todo>();
-        todos.add(new Todo("hello", new Date()));
-        todos.add(new Todo("Call 123-12345", new Date()));
         ListView todoListView = 
         		(ListView)findViewById(R.id.lstTodoItems);
         adapter =   new CustomAdapter(this,	todos);
