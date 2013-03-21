@@ -1,6 +1,7 @@
 package il.ac.huji.todolist;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -91,11 +92,8 @@ public class TodoListManagerActivity extends Activity {
 		  switch (reqCode) {
 		  case addNewItemRequestCall:
 			  if (resCode!=RESULT_OK || data==null) break;
-			  String task = data.getStringExtra("Task");
-			  int year = data.getIntExtra("Year", 0);
-			  int month = data.getIntExtra("Month", 0);
-			  int day = data.getIntExtra("Day", 0);
-			  GregorianCalendar date = new GregorianCalendar(year, month, day);
+			  String task = data.getStringExtra("title");
+			  Date date = (Date) data.getSerializableExtra("dueDate");
 			  adapter.add(new Todo(task, date));
 			  break;
 		  }

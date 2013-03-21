@@ -1,5 +1,7 @@
 package il.ac.huji.todolist;
 
+import java.util.Date;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,11 +25,11 @@ public class AddNewTodoItemActivity extends Activity {
             public void onClick(View v) {
         		Intent result = new Intent();
         		EditText edtNewItem = (EditText)findViewById(R.id.edtNewItem);
+        		result.putExtra("title", edtNewItem.getText().toString());
         		DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker);
-        		result.putExtra("Task", edtNewItem.getText().toString());
-        		result.putExtra("Year", datePicker.getYear());
-        		result.putExtra("Month", datePicker.getMonth());
-        		result.putExtra("Day", datePicker.getDayOfMonth());
+        		@SuppressWarnings("deprecation")
+				Date date = new Date(datePicker.getYear()-1900, datePicker.getMonth(), datePicker.getDayOfMonth());
+        		result.putExtra("dueDate", date);
         		setResult(RESULT_OK, result);
         		finish();
             }
