@@ -3,8 +3,10 @@ package il.ac.huji.todolist;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -56,7 +58,8 @@ public class TodoListManagerActivity extends Activity {
     		adapter.remove(task);
     		break;
     	case contextCall:
-    		Toast.makeText(this, task.task, Toast.LENGTH_SHORT).show();
+    		Intent dial = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+task.task.substring(5)));
+    		startActivity(dial);
     		break;
     	default:
     		return false;
