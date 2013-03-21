@@ -1,6 +1,7 @@
 package il.ac.huji.todolist;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.net.Uri;
@@ -14,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,6 +24,7 @@ public class TodoListManagerActivity extends Activity {
 	private List<Todo> todos;
 	private static final int contextDelete=0;
 	private static final int contextCall=1;
+	private static final int addNewItemRequestCall=42;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +79,29 @@ public class TodoListManagerActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     	case R.id.menuItemAdd:
-        	EditText newTask = (EditText)findViewById(R.id.edtNewItem);
-    		adapter.add(new Todo(newTask.getText().toString()));
+    		Intent intent = new Intent(this, AddNewTodoItemActivity.class);
+    		startActivityForResult(intent, addNewItemRequestCall);
     		break;
     	}
     	return true;
     }
+    
+    @Override
+	protected void onActivityResult(int reqCode, int resCode, Intent data) {
+		  switch (reqCode) {
+		  case addNewItemRequestCall:
+			  if (resCode!=RESULT_OK || data==null) break;
+			  String task = data.getStringExtra("Task");
+			  int year = data.getIntExtra("Year", 0);
+			  int month = data.getIntExtra("Month", 0);
+			  int day = data.getIntExtra("Day", 0);
+			  GregorianCalendar date = new GregorianCalendar(year, month, day);
+			  adapter.add(new Todo(task, date));
+			  break;
+		  }
+		}
+
+
 
     
 }
