@@ -52,7 +52,7 @@ public class TodoListManagerActivity extends Activity {
          if (task.task.startsWith("Call ")) {
         	 menu.getItem(1).setTitle(task.task);
          } else {
-             menu.findItem(R.id.menuItemCall).setVisible(false);
+         	 menu.removeItem(R.id.menuItemCall);
          }
     }  
     @Override  
