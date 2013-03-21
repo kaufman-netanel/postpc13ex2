@@ -78,11 +78,6 @@ public class TodoListManagerActivity extends Activity {
         	EditText newTask = (EditText)findViewById(R.id.edtNewItem);
     		adapter.add(new Todo(newTask.getText().toString()));
     		break;
-    	case R.id.menuItemDelete:
-    		ListView todosListView = (ListView)findViewById(R.id.lstTodoItems);
-    		Todo todo = (Todo)todosListView.getSelectedItem();
-    		adapter.remove(todo);
-    		break;
     	}
     	return true;
     }
