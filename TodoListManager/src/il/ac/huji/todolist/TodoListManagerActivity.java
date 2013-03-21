@@ -33,6 +33,8 @@ public class TodoListManagerActivity extends Activity {
         setContentView(R.layout.activity_todo_list_manager);
         
         todos = new ArrayList<Todo>();
+        todos.add(new Todo("hello", new Date()));
+        todos.add(new Todo("Call 123-12345", new Date()));
         ListView todoListView = 
         		(ListView)findViewById(R.id.lstTodoItems);
         adapter =   new CustomAdapter(this,	todos);
@@ -43,23 +45,25 @@ public class TodoListManagerActivity extends Activity {
 
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
         super.onCreateContextMenu(menu, v, menuInfo);  
+        getMenuInflater().inflate(R.menu.todo_list_context, menu);
         AdapterContextMenuInfo info =(AdapterContextMenuInfo)menuInfo;
         Todo task = todos.get((int)info.id);
         menu.setHeaderTitle(task.task);  
-        menu.add(Menu.NONE, contextDelete, 0, R.string.delete_button);
-        if (task.task.startsWith("Call ")) {
-            menu.add(Menu.NONE, contextCall, 1, task.task);  
-        }
+         if (task.task.startsWith("Call ")) {
+        	 menu.getItem(1).setTitle(task.task);
+         } else {
+             menu.findItem(R.id.menuItemCall).setVisible(false);
+         }
     }  
     @Override  
     public boolean onContextItemSelected(MenuItem item) { 
         AdapterContextMenuInfo info =(AdapterContextMenuInfo)item.getMenuInfo();
         Todo task = todos.get((int)info.id);
     	switch (item.getItemId()) {
-    	case contextDelete:
+    	case R.id.menuItemDelete:
     		adapter.remove(task);
     		break;
-    	case contextCall:
+    	case R.id.menuItemCall:
     		Intent dial = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+task.task.substring(5)));
     		startActivity(dial);
     		break;
