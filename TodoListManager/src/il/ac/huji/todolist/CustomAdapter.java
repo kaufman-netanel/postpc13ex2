@@ -23,16 +23,18 @@ public class CustomAdapter extends ArrayAdapter<ITodoItem> {
 		ITodoItem todo = getItem(position);
 		LayoutInflater inflater = LayoutInflater.from(getContext());
 		View view = inflater.inflate(R.layout.todo_list_row, null);
+		
 		TextView txtTaskTitle = (TextView)view.findViewById(R.id.txtTaskTitle);
-		TextView txtTodoDueDate = (TextView)view.findViewById(R.id.txtTodoDueDate);
-		Date now = new Date();
-		int color = todo.getDueDate().before(now) ? Color.RED : Color.BLACK;
 		txtTaskTitle.setText(todo.getTitle());
-		txtTaskTitle.setTextColor(color);
-		txtTodoDueDate.setTextColor(color);
+
+		TextView txtTodoDueDate = (TextView)view.findViewById(R.id.txtTodoDueDate);
 		if (todo.getDueDate() == null) {
 			txtTodoDueDate.setText("No due date");
 		} else {
+			Date now = new Date();
+			int color = todo.getDueDate().before(now) ? Color.RED : Color.BLACK;
+			txtTaskTitle.setTextColor(color);
+			txtTodoDueDate.setTextColor(color);
 			txtTodoDueDate.setText(String.format("%02d/%02d/%04d", 
 				todo.getDueDate().getDate(), 
 				todo.getDueDate().getMonth()+1, 

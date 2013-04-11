@@ -102,7 +102,7 @@ public class TodoListManagerActivity extends Activity {
 			  Date date = (Date) data.getSerializableExtra("dueDate");
 			  ITodoItem task = new Todo(title, date);
 			  adapter.add(task);
-			  todoDal.insert(task);
+			  Boolean ret = todoDal.insert(task);
 			  break;
 		  }
 		}
