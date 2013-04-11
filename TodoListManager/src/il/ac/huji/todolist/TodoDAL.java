@@ -27,10 +27,8 @@ public class TodoDAL {
 	    _sqlLiteHelper = new SqlLiteHelper(context);
 	    _db = _sqlLiteHelper.getWritableDatabase();
 	    Parse.initialize(context, 
-	    		"EbGBPAhex8yAih3FLq4vhtmX6COCJs2kxL4QbWdS", 
-	    		"DZUQhJnoCx8Zz9Kgbwspg6ueYZXKxNgVupcG8BqW");
-	    update(new Todo("jkhkhkjhkjh", new Date("1/1/2011")));
-	    update(new Todo("a", null));
+	    		context.getResources().getString(R.string.parseApplication), 
+	    		context.getResources().getString(R.string.clientKey));
 	}
 	
 	public boolean insert(ITodoItem todoItem) {
