@@ -46,9 +46,9 @@ public class TodoListManagerActivity extends Activity {
         getMenuInflater().inflate(R.menu.todo_list_context, menu);
         AdapterContextMenuInfo info =(AdapterContextMenuInfo)menuInfo;
         Todo task = todos.get((int)info.id);
-        menu.setHeaderTitle(task.task);  
-         if (task.task.startsWith("Call ")) {
-        	 menu.getItem(1).setTitle(task.task);
+        menu.setHeaderTitle(task.getTitle());  
+         if (task.getTitle().startsWith("Call ")) {
+        	 menu.getItem(1).setTitle(task.getTitle());
          } else {
          	 menu.removeItem(R.id.menuItemCall);
          }
@@ -62,7 +62,7 @@ public class TodoListManagerActivity extends Activity {
     		adapter.remove(task);
     		break;
     	case R.id.menuItemCall:
-    		Intent dial = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+task.task.substring(5)));
+    		Intent dial = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+task.getTitle().substring(5)));
     		startActivity(dial);
     		break;
     	default:

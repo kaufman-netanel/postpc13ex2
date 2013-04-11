@@ -26,17 +26,17 @@ public class CustomAdapter extends ArrayAdapter<Todo> {
 		TextView txtTaskTitle = (TextView)view.findViewById(R.id.txtTaskTitle);
 		TextView txtTodoDueDate = (TextView)view.findViewById(R.id.txtTodoDueDate);
 		Date now = new Date();
-		int color = todo.date.before(now) ? Color.RED : Color.BLACK;
-		txtTaskTitle.setText(todo.task);
+		int color = todo.getDueDate().before(now) ? Color.RED : Color.BLACK;
+		txtTaskTitle.setText(todo.getTitle());
 		txtTaskTitle.setTextColor(color);
 		txtTodoDueDate.setTextColor(color);
-		if (todo.date == null) {
+		if (todo.getDueDate() == null) {
 			txtTodoDueDate.setText("No due date");
 		} else {
 			txtTodoDueDate.setText(String.format("%02d/%02d/%04d", 
-				todo.date.getDate(), 
-				todo.date.getMonth()+1, 
-				todo.date.getYear()+1900));
+				todo.getDueDate().getDate(), 
+				todo.getDueDate().getMonth()+1, 
+				todo.getDueDate().getYear()+1900));
 		}
 		return view;
 	}

@@ -2,18 +2,28 @@ package il.ac.huji.todolist;
 
 import java.util.Date;
 
-public class Todo {
+public class Todo implements ITodoItem{
 	
-	public Todo(String task, Date date) {
-		this.task = task;
-		this.date = date;
+	public Todo(String title, Date dueDate) {
+		this._title = title;
+		this._dueDate = dueDate;
 	}
 	
-	public String task;
-	public Date date;
+	private String _title;
+	private Date _dueDate;
 	
 	public String toString() {
-		return task;
+		return _title;
+	}
+
+	@Override
+	public String getTitle() {
+		return _title;
+	}
+
+	@Override
+	public Date getDueDate() {
+		return _dueDate;
 	}
 	
 }
