@@ -36,13 +36,13 @@ public class TodoDAL {
 	public boolean update(ITodoItem todoItem) {
 	    ContentValues task = createRow(todoItem);
 	    String namePrefix = todoItem.getTitle();
-	    int status = _db.update("tasks", task, "title like '?%'",new String[] { namePrefix });
+	    int status = _db.update("tasks", task, "title='?'",new String[] { namePrefix });
 	    return status != 0;
 	}
 	 
 	public boolean delete(ITodoItem todoItem) {
 	    String namePrefix = todoItem.getTitle();
-	    int status = _db.delete("tasks", "title like '?%'",new String[] { namePrefix });
+	    int status = _db.delete("tasks", "title=?",new String[] { namePrefix });
 	    return status != 0;
 	}
 	 

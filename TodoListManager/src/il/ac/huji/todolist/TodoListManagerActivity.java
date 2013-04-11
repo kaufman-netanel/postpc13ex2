@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 public class TodoListManagerActivity extends Activity {
 
-	private ArrayAdapter<Todo> adapter;
-	private List<Todo> todos;
+	private ArrayAdapter<ITodoItem> adapter;
+	private List<ITodoItem> todos;
+	private TodoDAL todoDal;
+	
 	private static final int contextDelete=0;
 	private static final int contextCall=1;
 	private static final int addNewItemRequestCall=42;
@@ -31,8 +33,9 @@ public class TodoListManagerActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list_manager);
+        todoDal = new TodoDAL(this);
         
-        todos = new ArrayList<Todo>();
+        todos = todoDal.all();
         ListView todoListView = 
         		(ListView)findViewById(R.id.lstTodoItems);
         adapter =   new CustomAdapter(this,	todos);
@@ -45,7 +48,7 @@ public class TodoListManagerActivity extends Activity {
         super.onCreateContextMenu(menu, v, menuInfo);  
         getMenuInflater().inflate(R.menu.todo_list_context, menu);
         AdapterContextMenuInfo info =(AdapterContextMenuInfo)menuInfo;
-        Todo task = todos.get((int)info.id);
+        ITodoItem task = todos.get((int)info.id);
         menu.setHeaderTitle(task.getTitle());  
          if (task.getTitle().startsWith("Call ")) {
         	 menu.getItem(1).setTitle(task.getTitle());
@@ -56,10 +59,11 @@ public class TodoListManagerActivity extends Activity {
     @Override  
     public boolean onContextItemSelected(MenuItem item) { 
         AdapterContextMenuInfo info =(AdapterContextMenuInfo)item.getMenuInfo();
-        Todo task = todos.get((int)info.id);
+        ITodoItem task = todos.get((int)info.id);
     	switch (item.getItemId()) {
     	case R.id.menuItemDelete:
     		adapter.remove(task);
+    		todoDal.delete(task);
     		break;
     	case R.id.menuItemCall:
     		Intent dial = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+task.getTitle().substring(5)));
@@ -94,9 +98,11 @@ public class TodoListManagerActivity extends Activity {
 		  switch (reqCode) {
 		  case addNewItemRequestCall:
 			  if (resCode!=RESULT_OK || data==null) break;
-			  String task = data.getStringExtra("title");
+			  String title = data.getStringExtra("title");
 			  Date date = (Date) data.getSerializableExtra("dueDate");
-			  adapter.add(new Todo(task, date));
+			  ITodoItem task = new Todo(title, date);
+			  adapter.add(task);
+			  todoDal.insert(task);
 			  break;
 		  }
 		}

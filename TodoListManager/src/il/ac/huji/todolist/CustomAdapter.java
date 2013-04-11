@@ -10,17 +10,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class CustomAdapter extends ArrayAdapter<Todo> {
+public class CustomAdapter extends ArrayAdapter<ITodoItem> {
 	public CustomAdapter(
 			TodoListManagerActivity activity,
-			List<Todo> todoList) {
+			List<ITodoItem> todoList) {
 		super(activity, android.R.layout.simple_list_item_1, todoList);
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Todo todo = getItem(position);
+		ITodoItem todo = getItem(position);
 		LayoutInflater inflater = LayoutInflater.from(getContext());
 		View view = inflater.inflate(R.layout.todo_list_row, null);
 		TextView txtTaskTitle = (TextView)view.findViewById(R.id.txtTaskTitle);
