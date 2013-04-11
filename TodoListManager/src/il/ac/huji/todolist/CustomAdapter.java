@@ -34,8 +34,8 @@ public class CustomAdapter extends ArrayAdapter<Todo> {
 			txtTodoDueDate.setText("No due date");
 		} else {
 			txtTodoDueDate.setText(String.format("%02d/%02d/%04d", 
-				todo.date.getDay(), 
-				todo.date.getMonth(), 
+				todo.date.getDate(), 
+				todo.date.getMonth()+1, 
 				todo.date.getYear()+1900));
 		}
 		return view;
