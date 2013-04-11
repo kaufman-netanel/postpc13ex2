@@ -13,24 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/edtNewItem"
-        android:layout_below="@+id/edtNewItem"
-        android:layout_marginTop="26dp" />
-
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/datePicker"
-        android:layout_below="@+id/datePicker"
-        android:layout_marginTop="18dp"
-        android:text="Cancel" />
+        android:layout_below="@+id/edtNewItem" />
 
     <EditText
         android:id="@+id/edtNewItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnCancel"
         android:ems="10" >
 
         <requestFocus />
@@ -40,9 +30,16 @@
         android:id="@+id/btnOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnCancel"
-        android:layout_alignBottom="@+id/btnCancel"
+        android:layout_above="@+id/edtNewItem"
         android:layout_alignRight="@+id/edtNewItem"
         android:text="OK" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Cancel" />
 
 </RelativeLayout>
